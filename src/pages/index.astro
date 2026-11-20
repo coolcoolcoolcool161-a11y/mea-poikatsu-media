@@ -38,14 +38,14 @@ const jsonLd = {
 };
 
 const title = 'メアのポイ活メディア｜紹介コード・招待コード・ポイ活の総合案内（Freecash・TikTok・ワラウ・モッピー等）';
-// 旧ポイ活ブログURL。ポイ活ブログの移行が完了したら新URL（SITE.blogUrl）に更新する。
-const oldBlogUrl = 'https://muse.ai/s/poihuo-burogu-xlxi6xcxsxg4ghx07/74yi0ejxEmcRwO9Gsp15bpRovm76_UruhoA3biG-N2o';
+// ポイ活ブログ（メイン）のURL。
+const blogMainUrl = 'https://coolcoolcoolcool161-a11y.github.io/mea-poikatsu-blog/';
 ---
 
 <BaseLayout title={title} description={SITE.description} canonicalPath="/" jsonLd={jsonLd}>
   <div class="wrap">
     <div class="hero">
-      <img src="/images/hero.jpg" alt="メアのポイ活メディア：お得をもっと身近に、ポイ活・招待コード・紹介系、一緒におトクをGETしよう" width="1179" height="393" />
+      <img src="/mea-poikatsu-media/images/hero.jpg" alt="メアのポイ活メディア：お得をもっと身近に、ポイ活・招待コード・紹介系、一緒におトクをGETしよう" width="1179" height="393" />
     </div>
 
     <h1>メアのポイ活メディア💖</h1>
@@ -54,7 +54,7 @@ const oldBlogUrl = 'https://muse.ai/s/poihuo-burogu-xlxi6xcxsxg4ghx07/74yi0ejxEm
     </p>
 
     <div class="pr-box">
-      このページは広告（PR）を含みます。掲載している紹介リンク・紹介コードを使って各サービスに登録し、所定の条件を満たすと、メア（紹介者）に、各サービスの運営会社から紹介報酬が支払われる場合があります。紹介報酬が発生しても、あなたの特典が減ったり、利用料金が上乗せされたりすることはないので安心してね。仕組みと対象範囲は<a href="/ad-disclosure/">「広告・紹介報酬に関する表記」</a>にまとめています。
+      このページは広告（PR）を含みます。掲載している紹介リンク・紹介コードを使って各サービスに登録し、所定の条件を満たすと、メア（紹介者）に、各サービスの運営会社から紹介報酬が支払われる場合があります。紹介報酬が発生しても、あなたの特典が減ったり、利用料金が上乗せされたりすることはないので安心してね。仕組みと対象範囲は<a href="/mea-poikatsu-media/ad-disclosure/">「広告・紹介報酬に関する表記」</a>にまとめています。
     </div>
 
     <p class="article-meta">最終更新：2026年11月20日</p>
@@ -109,15 +109,15 @@ const oldBlogUrl = 'https://muse.ai/s/poihuo-burogu-xlxi6xcxsxg4ghx07/74yi0ejxEm
       {rest.map((a) => <ServiceCard article={a} />)}
     </div>
 
-    <p><a href={oldBlogUrl} target="_blank" rel="noopener">全案件の詳細・条件はポイ活ブログ（メイン）で見てね♪ →</a></p>
+    <p><a href={blogMainUrl} target="_blank" rel="noopener">全案件の詳細・条件はポイ活ブログ（メイン）で見てね♪ →</a></p>
 
     <AdSlot />
 
     <h2>🔍 紹介コードを探す</h2>
-    <p>サービス名・紹介コード・特典から検索できます。<a href="/search/">紹介コード検索はこちら →</a></p>
+    <p>サービス名・紹介コード・特典から検索できます。<a href="/mea-poikatsu-media/search/">紹介コード検索はこちら →</a></p>
 
     <h2>🎀 このメディアについて</h2>
     <p>ポイ活が大好きなメアが、メアの媒体をまとめた総合案内だよ💖 ブログ・掲示板・note・Xはここからたどれるよ♪</p>
-    <p><a href="/about/">運営者情報を見る →</a></p>
+    <p><a href="/mea-poikatsu-media/about/">運営者情報を見る →</a></p>
   </div>
 </BaseLayout>

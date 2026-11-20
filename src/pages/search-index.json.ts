@@ -12,7 +12,7 @@ export async function GET() {
     title: a.data.title,
     description: a.data.description,
     // ハブに個別記事ページはないため、検索結果のリンクはトップページ内のカードへ
-    url: `/#${slugOf(a.id)}`,
+    url: `/mea-poikatsu-media/#${slugOf(a.id)}`,
     registerUrl: a.data.url ?? a.data.officialSite ?? '',
   }));
   return new Response(JSON.stringify(index), {
