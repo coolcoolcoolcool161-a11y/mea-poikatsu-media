@@ -7,7 +7,7 @@ export const SITE = {
   description:
     'メアが集めた紹介コード・招待コードとポイ活情報をぎゅっとまとめた総合案内。Freecash・TikTok・ワラウ・モッピー・Muse・サンポ・ぶたまる・ミラポイ・トクエル・dipsファーム・ハピタスの12サービス。ブログ・掲示板・note・Xへの入口はこちら。',
   dateModified: '2026-11-20',
-  gaMeasurementId: '',
+  gaMeasurementId: 'G-8BB8V3DRW8',
   xAccount: 'https://x.com/pppppuririn',
   noteUrl: 'https://note.com/k_n702',
   boardUrl: 'https://mea-keijiban.pages.dev',
