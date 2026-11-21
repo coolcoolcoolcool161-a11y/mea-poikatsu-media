@@ -82,4 +82,9 @@ export const MEDIA_BLOGS = [
     note: 'ゲームを遊んで稼ぐ案件が中心。Freecashなどゲーム系ポイ活を深掘りしています。',
     url: 'https://coolcoolcoolcool161-a11y.github.io/mea-game-poikatsu/',
   },
+  {
+    name: '紹介コードまとめブログ',
+    note: '全サービスの紹介コードを一覧でまとめたブログ。まとめて確認したい方に。',
+    url: 'https://coolcoolcoolcool161-a11y.github.io/mea-code-matome/',
+  },
 ] as const;
