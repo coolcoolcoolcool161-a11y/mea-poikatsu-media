@@ -10,7 +10,10 @@ import { SITE } from '../../data/site';
 >
   <div class="wrap">
     <p class="breadcrumb"><a href="/mea-poikatsu-media/">トップ</a> › Muse通信</p>
-    <h1>✉️ Muse通信</h1>
+    <div class="nl-head">
+      <h1>✉️ Muse通信</h1>
+      <img class="nl-ornament" src="/mea-poikatsu-media/images/mea-ornament-ribbon-heart.webp" alt="" width="1600" height="1600" />
+    </div>
     <p>ポイ活のお得な情報を見逃したくない方へ。招待コード・紹介特典・キャンペーン情報・初心者向け攻略情報など、知っておきたいポイ活情報を無料でお届けします。毎週1回、役立つ情報を厳選して配信します。</p>
     <ul>
       <li>登録無料</li>
@@ -59,6 +62,20 @@ import { SITE } from '../../data/site';
 </BaseLayout>
 
 <style>
+  /* 見出し脇のリボン装飾（控えめなサイズ。白背景素材のため multiply でページ地色へなじませる） */
+  .nl-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .nl-head h1 { margin: 0; }
+  .nl-ornament {
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+    mix-blend-mode: multiply;
+  }
   .nl-form {
     background: var(--color-surface);
     border: var(--border-card);

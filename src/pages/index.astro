@@ -157,11 +157,13 @@ const CATEGORY_NOTES: Record<string, string> = {
       <li><a href={SITE.xAccount} target="_blank" rel="noopener">𝕏 メア｜ポイ活・紹介コード（@pppppuririn）</a> →</li>
     </ul>
 
-    <h2 id="newsletter">✉️ ニュースレター</h2>
-    <p>無料ニュースレター「Muse通信」では、招待コード・紹介特典・キャンペーン情報と初心者向け攻略情報を、毎週1回・土曜日にお届けするよ♪ 登録無料で、いつでも配信停止できるよ♡</p>
-    <ul>
-      <li><a href="/mea-poikatsu-media/newsletter/">Muse通信に登録する</a> →</li>
-    </ul>
+    <section class="nl-feature">
+      <h2 id="newsletter">✉️ ニュースレター</h2>
+      <p>無料ニュースレター「Muse通信」では、招待コード・紹介特典・キャンペーン情報と初心者向け攻略情報を、毎週1回・土曜日にお届けするよ♪ 登録無料で、いつでも配信停止できるよ♡</p>
+      <ul>
+        <li><a href="/mea-poikatsu-media/newsletter/">Muse通信に登録する</a> →</li>
+      </ul>
+    </section>
 
     <h2>🔍 紹介コードを探す</h2>
     <p>サービス名・紹介コード・特典から検索できます。<a href="/mea-poikatsu-media/search/">紹介コード検索はこちら →</a></p>
@@ -173,3 +175,18 @@ const CATEGORY_NOTES: Record<string, string> = {
     <AdSlot position="bottom" />
   </div>
 </BaseLayout>
+
+<style>
+  /* ニュースレターセクション：レース＋ハート背景を薄く敷き、白パネル相当の淡色レイヤーで本文の可読性を保つ */
+  .nl-feature {
+    margin: 2em 0;
+    padding: 4px 18px 14px;
+    border: 1px solid var(--color-primary-line);
+    border-radius: var(--radius-md);
+    background:
+      linear-gradient(rgba(255, 250, 252, 0.86), rgba(255, 240, 245, 0.9)),
+      url('/mea-poikatsu-media/images/mea-lace-heart-bg-wide.webp') center / cover no-repeat;
+  }
+  .nl-feature h2 { margin-top: 0.6em; }
+  .nl-feature ul { margin-bottom: 0.4em; }
+</style>
