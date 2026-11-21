@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SITE } from '../../../data/site';
+---
+
+<BaseLayout
+  title={`登録ありがとうございます｜Muse通信｜${SITE.name}`}
+  description="無料ニュースレター「Muse通信」へのご登録ありがとうございます。毎週土曜日にお届けします。"
+  canonicalPath="/newsletter/thanks/"
+>
+  <div class="wrap">
+    <p class="breadcrumb"><a href="/mea-poikatsu-media/">トップ</a> › <a href="/mea-poikatsu-media/newsletter/">Muse通信</a> › 登録完了</p>
+    <h1>🎀 ご登録ありがとうございます</h1>
+    <p>ご登録ありがとうございます。Muse通信は毎週土曜日にお届けします。</p>
+    <p>届くまでの間、招待コード一覧もチェックしてみてくださいね♪</p>
+    <ul>
+      <li><a href="/mea-poikatsu-media/">トップページへ →</a></li>
+      <li><a href="/mea-poikatsu-media/#featured">招待コード・紹介コード一覧を見る →</a></li>
+    </ul>
+  </div>
+</BaseLayout>
