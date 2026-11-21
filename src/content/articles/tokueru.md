@@ -1,9 +1,9 @@
 ---
-title: "トクエルの招待コード 9459GJ｜登録した方・紹介した方の両方に5,000ポイント"
+title: "トクエルの招待コード 9459GJ｜あなたに5,000ポイント"
 description: "歩くだけでポイントが貯まるアプリだよ👟 歩数のほか、タロットやミッションでもポイントが貯まるの♪ 交換先はPayPayポイント・Amazonギフトカードなどだよ♡"
 service: "トクエル"
 category: new-apps
-benefit: "登録した方・紹介した方の両方に5,000ポイント"
+benefit: "あなたに5,000ポイント"
 code: "9459GJ"
 url: "https://tokueru.jp/invitations/9459GJ"
 dateModified: "2026-11-20"
