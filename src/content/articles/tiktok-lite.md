@@ -6,6 +6,7 @@ category: sns-video
 benefit: "新規登録で1,400円分の報酬獲得チャンス"
 code: "890270647"
 url: "https://lite.tiktok.com/t/ZS9f73unLbRXS-wsJMe/"
+image: "/images/banner-tiktok-lite.jpg"
 dateModified: "2026-11-20"
 ---
 

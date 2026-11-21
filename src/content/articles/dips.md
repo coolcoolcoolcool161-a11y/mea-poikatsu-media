@@ -6,6 +6,7 @@ category: new-apps
 benefit: "メア特別コード特典：水1,000g＋高級肥料10個（登録から24時間以内にコード入力）"
 code: "MEAPOI"
 url: "https://dips.underduck.io/farm/invite"
+image: "/images/banner-dips.jpg"
 dateModified: "2026-11-20"
 ---
 
