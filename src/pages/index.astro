@@ -3,13 +3,14 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import AdSlot from '../components/AdSlot.astro';
-import { SITE, HUB_ORDER, MEDIA_HOME, MEDIA_BLOGS, slugOf } from '../data/site';
+import { SITE, HUB_ORDER, MEDIA_HOME, MEDIA_BLOGS, CATEGORIES, slugOf } from '../data/site';
 
 const articles = await getCollection('articles');
 const bySlug = new Map(articles.map((a) => [slugOf(a.id), a]));
 const ordered = HUB_ORDER.map((s) => bySlug.get(s)!);
 const freecash = bySlug.get('freecash')!;
 const rest = ordered.filter((a) => slugOf(a.id) !== 'freecash');
+const featured = ordered.slice(0, 3);
 
 const itemList = ordered.map((a, i) => ({
   '@type': 'ListItem',
@@ -40,18 +41,35 @@ const jsonLd = {
 const title = 'メアのポイ活メディア｜紹介コード・招待コード・ポイ活の総合案内（Freecash・TikTok・ワラウ・モッピー等）';
 // ポイ活ブログ（メイン）のURL。
 const blogMainUrl = 'https://coolcoolcoolcool161-a11y.github.io/mea-poikatsu-blog/';
+
+const CATEGORY_NOTES: Record<string, string> = {
+  'point-sites': 'まず登録したい定番のポイントサイト',
+  'sns-video': 'TikTokなどのSNS・動画サービスの招待',
+  'payment-bank': 'PayPay・銀行・通信などの紹介特典',
+  'others': 'そのほかのお得な紹介コード',
+  'new-apps': '歩数・予想・育成などの新しいポイ活アプリ',
+};
 ---
 
 <BaseLayout title={title} description={SITE.description} canonicalPath="/" jsonLd={jsonLd}>
   <div class="wrap">
     <div class="hero">
-      <img src="/mea-poikatsu-media/images/hero.jpg" alt="メアのポイ活メディア：お得をもっと身近に、ポイ活・招待コード・紹介系、一緒におトクをGETしよう" width="1179" height="393" />
+      <img src="/mea-poikatsu-media/images/hero.jpg" alt="メアのポイ活メディア：お得をもっと身近に、ポイ活・招待コード・紹介系、一緒におトクをGETしよう" width="1179" height="393" fetchpriority="high" />
     </div>
 
-    <h1>メアのポイ活メディア💖</h1>
+    <h1>メアのポイ活メディア</h1>
     <p class="lead">
       はじめまして、メアだよ♪ メアが集めた紹介コード・招待コードとポイ活情報をぎゅっとまとめたよ✨ 一緒におトクをGETしようね♡
     </p>
+
+    <div class="featured-benefits" aria-label="注目の特典">
+      {featured.map((a) => (
+        <a class="featured-benefit" href={`#${slugOf(a.id)}`}>
+          <span class="fb-service">{a.data.service}の登録者特典</span>
+          <span class="fb-value">{a.data.benefit}</span>
+        </a>
+      ))}
+    </div>
 
     <div class="pr-box">
       このページは広告（PR）を含みます。掲載している紹介リンク・紹介コードを使って各サービスに登録し、所定の条件を満たすと、メア（紹介者）に、各サービスの運営会社から紹介報酬が支払われる場合があります。紹介報酬が発生しても、あなたの特典が減ったり、利用料金が上乗せされたりすることはないので安心してね。仕組みと対象範囲は<a href="/mea-poikatsu-media/ad-disclosure/">「広告・紹介報酬に関する表記」</a>にまとめています。
@@ -61,51 +79,7 @@ const blogMainUrl = 'https://coolcoolcoolcool161-a11y.github.io/mea-poikatsu-blo
 
     <AdSlot />
 
-    <h2 id="home">ホームページ🏠</h2>
-    <p>気になるサービスを探して比べてみてね♪</p>
-    <ul>
-      {MEDIA_HOME.map((b) => (
-        <li><a href={b.url} target="_blank" rel="noopener">{b.name}</a>：{b.note} <a href={b.url} target="_blank" rel="noopener">→</a></li>
-      ))}
-    </ul>
-
-    <h2 id="blogs">ブログ📖</h2>
-    <p>ポイ活のコツと「これってどうなの？」をメアが分かりやすくまとめたよ♪</p>
-    <ul>
-      {MEDIA_BLOGS.map((b) => (
-        <li><a href={b.url} target="_blank" rel="noopener">{b.name}</a>：{b.note} <a href={b.url} target="_blank" rel="noopener">→</a></li>
-      ))}
-    </ul>
-
-    <AdSlot />
-
-    <h2 id="board">掲示板💬</h2>
-    <p>みんなのコード交換・質問はここだよ♪</p>
-    <ul>
-      <li><a href={SITE.boardUrl} target="_blank" rel="noopener">みんなの紹介コード掲示板</a> →</li>
-    </ul>
-    <p>あなたの紹介コードを投稿したり、みんなのコードを探したりしてね♪</p>
-
-    <h2 id="note">note📝</h2>
-    <p>メアの実践レポートと深掘り解説だよ♪</p>
-    <ul>
-      <li><a href={SITE.noteUrl} target="_blank" rel="noopener">メア｜ポイ活・紹介コード</a> →</li>
-    </ul>
-    <p>メアが実際にやってみたポイ活の記録や、詳しい始め方を書いているよ。ぜひ読んでみてね♡</p>
-
-    <h2 id="x">Xでも発信中だよ💖</h2>
-    <p>毎日のポイ活記録とお得情報をメアが投稿しているよ♪ フォローしてくれたら嬉しいな♡</p>
-    <ul>
-      <li><a href={SITE.xAccount} target="_blank" rel="noopener">𝕏 メア｜ポイ活・紹介コード（@pppppuririn）</a> →</li>
-    </ul>
-
-    <h2 id="newsletter">ニュースレター✉️</h2>
-    <p>無料ニュースレター「Muse通信」では、招待コード・紹介特典・キャンペーン情報と初心者向け攻略情報を、毎週1回・土曜日にお届けするよ♪ 登録無料で、いつでも配信停止できるよ♡</p>
-    <ul>
-      <li><a href="/mea-poikatsu-media/newsletter/">Muse通信に登録する</a> →</li>
-    </ul>
-
-    <h2 id="featured">メアの注目案件✨</h2>
+    <h2 id="featured">✨ メアの注目案件</h2>
     <p>特典と条件をチェックしてから、メアの紹介リンク・コードで登録してね♪ 気になるものから始めてみよう♡</p>
 
     <h3>メアのイチオシ💖</h3>
@@ -119,11 +93,80 @@ const blogMainUrl = 'https://coolcoolcoolcool161-a11y.github.io/mea-poikatsu-blo
 
     <AdSlot />
 
+    <h2 id="categories">🗂 カテゴリから探す</h2>
+    <p>目的に合わせてカテゴリから探せます。各カテゴリの詳細はポイ活ブログ（メイン）にまとめています。</p>
+    <div class="link-cards">
+      {CATEGORIES.map((c) => (
+        <a class="link-card" href={`${blogMainUrl}categories/${c.slug}/`} target="_blank" rel="noopener">
+          <span class="lc-name">{c.name}</span>
+          <span class="lc-note">{CATEGORY_NOTES[c.slug] ?? ''}</span>
+        </a>
+      ))}
+    </div>
+
+    <h2 id="howto">🎀 ポイ活の仕組み</h2>
+    <p>紹介コードを使うと、登録する方に特典がもらえます。流れはかんたん3ステップです。</p>
+    <ol class="steps">
+      <li><strong>コードをコピー</strong>：気になるサービスのカードで紹介コードをコピーしてね。リンク型の紹介はそのまま次のステップへ。</li>
+      <li><strong>公式で登録</strong>：カードのボタンから公式サイト・アプリへ進んで登録。コード入力欄がある場合は、コピーしたコードを貼り付けてね。</li>
+      <li><strong>特典GET</strong>：条件を満たすと、登録した方に特典がもらえます。条件は各カードと記事で確認してね。</li>
+    </ol>
+
+    <h2 id="home">🏠 ホームページ</h2>
+    <p>気になるサービスを探して比べてみてね♪</p>
+    <div class="link-cards">
+      {MEDIA_HOME.map((b) => (
+        <a class="link-card" href={b.url} target="_blank" rel="noopener">
+          <span class="lc-name">{b.name}</span>
+          <span class="lc-note">{b.note}</span>
+        </a>
+      ))}
+    </div>
+
+    <h2 id="blogs">📖 ブログ</h2>
+    <p>ポイ活のコツと「これってどうなの？」をメアが分かりやすくまとめたよ♪</p>
+    <div class="link-cards">
+      {MEDIA_BLOGS.map((b) => (
+        <a class="link-card" href={b.url} target="_blank" rel="noopener">
+          <span class="lc-name">{b.name}</span>
+          <span class="lc-note">{b.note}</span>
+        </a>
+      ))}
+    </div>
+
+    <h2 id="board">💬 掲示板</h2>
+    <p>みんなのコード交換・質問はここだよ♪</p>
+    <ul>
+      <li><a href={SITE.boardUrl} target="_blank" rel="noopener">みんなの紹介コード掲示板</a> →</li>
+    </ul>
+    <p>あなたの紹介コードを投稿したり、みんなのコードを探したりしてね♪</p>
+
+    <h2 id="note">📝 note</h2>
+    <p>メアの実践レポートと深掘り解説だよ♪</p>
+    <ul>
+      <li><a href={SITE.noteUrl} target="_blank" rel="noopener">メア｜ポイ活・紹介コード</a> →</li>
+    </ul>
+    <p>メアが実際にやってみたポイ活の記録や、詳しい始め方を書いているよ。ぜひ読んでみてね♡</p>
+
+    <h2 id="x">💖 Xでも発信中だよ</h2>
+    <p>毎日のポイ活記録とお得情報をメアが投稿しているよ♪ フォローしてくれたら嬉しいな♡</p>
+    <ul>
+      <li><a href={SITE.xAccount} target="_blank" rel="noopener">𝕏 メア｜ポイ活・紹介コード（@pppppuririn）</a> →</li>
+    </ul>
+
+    <h2 id="newsletter">✉️ ニュースレター</h2>
+    <p>無料ニュースレター「Muse通信」では、招待コード・紹介特典・キャンペーン情報と初心者向け攻略情報を、毎週1回・土曜日にお届けするよ♪ 登録無料で、いつでも配信停止できるよ♡</p>
+    <ul>
+      <li><a href="/mea-poikatsu-media/newsletter/">Muse通信に登録する</a> →</li>
+    </ul>
+
     <h2>🔍 紹介コードを探す</h2>
     <p>サービス名・紹介コード・特典から検索できます。<a href="/mea-poikatsu-media/search/">紹介コード検索はこちら →</a></p>
 
     <h2>🎀 このメディアについて</h2>
     <p>ポイ活が大好きなメアが、メアの媒体をまとめた総合案内だよ💖 ブログ・掲示板・note・Xはここからたどれるよ♪</p>
     <p><a href="/mea-poikatsu-media/about/">運営者情報を見る →</a></p>
+
+    <AdSlot />
   </div>
 </BaseLayout>
