@@ -32,9 +32,89 @@ import { SITE } from '../../data/site';
 
     <h2>登録フォーム</h2>
     <p>登録すると確認メールが届きます。メール内のリンクを開くと登録が完了します（二重オプトイン）。</p>
-    <script is:inline async data-uid="2270da85a9" src="https://creative-trader-9659.kit.com/2270da85a9/index.js"></script>
+    <form class="nl-form" action="https://app.kit.com/forms/10221289/subscriptions" method="post">
+      <label class="nl-label" for="nl-email">メールアドレス</label>
+      <input class="nl-email" id="nl-email" type="email" name="email_address" placeholder="example@example.com" autocomplete="email" required />
+      <label class="nl-consent" for="nl-agree">
+        <input class="nl-checkbox" id="nl-agree" type="checkbox" />
+        <span><a href="/mea-poikatsu-media/privacy/">プライバシーポリシー</a>を確認しました。このチェックを入れることで、Muse通信の配信に同意したものとします。</span>
+      </label>
+      <button class="nl-submit" id="nl-submit" type="submit" disabled>同意して登録する</button>
+      <p class="nl-note">同意のチェックを入れるまで、登録ボタンは押せません。</p>
+    </form>
     <p>配信停止は、届いたメール内の配信停止リンクからいつでもできます。メールアドレスの取り扱いについては<a href="/mea-poikatsu-media/privacy/">プライバシーポリシー</a>をご確認ください。</p>
+    <script is:inline>
+      (function () {
+        var agree = document.getElementById('nl-agree');
+        var submit = document.getElementById('nl-submit');
+        if (!agree || !submit) return;
+        agree.addEventListener('change', function () {
+          submit.disabled = !agree.checked;
+        });
+      })();
+    </script>
 
     <p><a href="/mea-poikatsu-media/">トップへ戻る →</a></p>
   </div>
 </BaseLayout>
+
+<style>
+  .nl-form {
+    background: var(--color-surface);
+    border: var(--border-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 20px 16px;
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .nl-label { font-weight: 700; }
+  .nl-email {
+    width: 100%;
+    font-size: 1rem;
+    min-height: 48px;
+    padding: 10px 14px;
+    border: 1px solid var(--color-primary-line);
+    border-radius: var(--radius-sm);
+    background: #fff;
+  }
+  .nl-email:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
+  .nl-consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    cursor: pointer;
+    padding: 6px 0;
+  }
+  .nl-checkbox {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--color-primary-strong);
+    cursor: pointer;
+  }
+  .nl-submit {
+    min-height: 52px;
+    width: 100%;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary-strong);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color .18s, opacity .18s;
+  }
+  .nl-submit:hover:not(:disabled) { background: var(--color-primary-dark); }
+  .nl-submit:disabled {
+    background: #e5b7c8;
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+  .nl-note { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0; }
+</style>
