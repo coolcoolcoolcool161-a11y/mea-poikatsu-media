@@ -10,7 +10,7 @@ export const SITE = {
   gaMeasurementId: 'G-8BB8V3DRW8',
   xAccount: 'https://x.com/pppppuririn',
   noteUrl: 'https://note.com/k_n702',
-  boardUrl: 'https://mea-keijiban.pages.dev',
+  boardUrl: 'https://coolcoolcoolcool161-a11y.github.io/mea-keijiban/',
   blogUrl: 'https://coolcoolcoolcool161-a11y.github.io/mea-poikatsu-blog/',
 } as const;
 
