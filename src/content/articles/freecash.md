@@ -8,6 +8,7 @@ code: "3BQLXB"
 url: "https://freecash.com/r/3BQLXB"
 dateModified: "2026-11-20"
 featured: true
+image: "https://coolcoolcoolcool161-a11y.github.io/mea-poikatsu-blog/images/banner-freecash.jpg"
 ---
 
 ## Freecashとは
