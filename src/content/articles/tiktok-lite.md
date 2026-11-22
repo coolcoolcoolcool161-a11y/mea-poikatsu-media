@@ -8,6 +8,7 @@ code: "890270647"
 url: "https://lite.tiktok.com/t/ZS9f73unLbRXS-wsJMe/"
 image: "/images/banner-tiktok-lite.jpg"
 dateModified: "2026-11-20"
+conditions: "招待経由で新規登録し、アクティビティに参加"
 ---
 
 ## TikTok Liteとは

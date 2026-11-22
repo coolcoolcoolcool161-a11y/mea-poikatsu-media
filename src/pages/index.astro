@@ -78,7 +78,7 @@ const CATEGORY_NOTES: Record<string, string> = {
       このページは広告（PR）を含みます。掲載している紹介リンク・紹介コードを使って各サービスに登録し、所定の条件を満たすと、メア（紹介者）に、各サービスの運営会社から紹介報酬が支払われる場合があります。紹介報酬が発生しても、あなたの特典が減ったり、利用料金が上乗せされたりすることはないので安心してね。仕組みと対象範囲は<a href="/mea-poikatsu-media/ad-disclosure/">「広告・紹介報酬に関する表記」</a>にまとめています。
     </div>
 
-    <p class="article-meta">最終更新：2026年11月20日</p>
+    <p class="article-meta">最終更新：2026年11月23日</p>
 
     <AdSlot position="top" />
 
@@ -90,6 +90,29 @@ const CATEGORY_NOTES: Record<string, string> = {
 
     <div class="card-grid">
       {rest.map((a) => <ServiceCard article={a} />)}
+    </div>
+
+    <h2 id="code-table">📋 紹介コード一覧表（おすすめ順）</h2>
+    <p>全12サービスの紹介コード・登録者特典・条件要点を、メアのおすすめ順に一覧にしたよ♪ 特典や条件は変わることがあるから、登録前に各サービスの公式案内も確認してね。</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>順位</th><th>サービス</th><th>紹介コード</th><th>登録者特典</th><th>条件要点</th><th>最終確認日</th><th>詳細</th></tr>
+        </thead>
+        <tbody>
+          {ordered.map((a, i) => (
+            <tr>
+              <td>{i + 1}</td>
+              <td>{a.data.service}</td>
+              <td>{a.data.code ? (a.data.code2 ? `${a.data.code}／${a.data.code2}` : a.data.code) : 'リンク型'}</td>
+              <td>{a.data.benefit}</td>
+              <td>{a.data.conditions ?? '—'}</td>
+              <td>{a.data.verified ?? a.data.dateModified}</td>
+              <td><a href={SITE.blogUrl + `articles/${slugOf(a.id)}/`} target="_blank" rel="noopener">詳細へ</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
 
     <p><a href={blogMainUrl} target="_blank" rel="noopener">全案件の詳細・条件はポイ活ブログ（メイン）で見てね♪ →</a></p>

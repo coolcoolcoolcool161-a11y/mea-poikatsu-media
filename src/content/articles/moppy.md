@@ -9,6 +9,8 @@ url: "https://pc.moppy.jp/entry/invite.php?invite=7xaGA123"
 image: "/images/banner-official-moppy.jpg"
 imageAlt: "1日10分からできる！節約・副業でお小遣い稼ぎ！ポイ活ならモッピー"
 dateModified: "2026-11-20"
+conditions: "紹介経由の登録＋対象広告で5,000P以上承認（入会月の翌々月末まで）で紹介特典+2,000P、合計最大7,000P"
+verified: "2026-11-23"
 ---
 
 ## モッピーとは

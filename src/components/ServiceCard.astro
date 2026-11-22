@@ -37,12 +37,24 @@ const imgSize = data.image ? IMG_DIMS[data.image] : undefined;
     <span class="benefit-value">{data.benefit}</span>
   </div>
   {data.code ? (
-    <div class="code-row">
-      <code>{data.code}</code>
-      <button class="copy-btn" type="button" data-copy={data.code} data-service={slug}>
-        <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="copy-label">コピー</span>
-      </button>
-    </div>
+    <>
+      <div class="code-row">
+        {data.codeLabel && <span class="code-label">{data.codeLabel}</span>}
+        <code>{data.code}</code>
+        <button class="copy-btn" type="button" data-copy={data.code} data-service={slug}>
+          <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="copy-label">コピー</span>
+        </button>
+      </div>
+      {data.code2 && (
+        <div class="code-row">
+          {data.code2Label && <span class="code-label">{data.code2Label}</span>}
+          <code>{data.code2}</code>
+          <button class="copy-btn" type="button" data-copy={data.code2} data-service={slug}>
+            <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="copy-label">コピー</span>
+          </button>
+        </div>
+      )}
+    </>
   ) : (
     <p class="conditions">紹介コードはありません。紹介リンクから登録してください。</p>
   )}
@@ -62,3 +74,8 @@ const imgSize = data.image ? IMG_DIMS[data.image] : undefined;
     <a class="detail-link" href={SITE.blogUrl + `articles/${slug}/`}>詳細と条件を確認する</a>
   )}
 </article>
+
+<style>
+  .code-label { font-size: 0.85rem; font-weight: 700; color: var(--color-primary-deep, #ad1457); }
+  .code-row + .code-row { margin-top: 6px; }
+</style>

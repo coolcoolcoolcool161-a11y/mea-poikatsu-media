@@ -8,6 +8,7 @@ code: "9459GJ"
 url: "https://tokueru.jp/invitations/9459GJ"
 image: "/images/banner-tokueru.jpg"
 dateModified: "2026-11-20"
+conditions: "招待コード・URLから新規登録で5,000ポイント"
 ---
 
 ## トクエルとは

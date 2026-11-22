@@ -7,6 +7,8 @@ benefit: "新規登録で約1,430円相当のポイントGET"
 code: "3BQLXB"
 url: "https://freecash.com/r/3BQLXB"
 dateModified: "2026-11-20"
+conditions: "紹介リンクから新規登録し、対象ゲームをプレイして条件を達成"
+verified: "2026-11-21"
 featured: true
 image: "https://coolcoolcoolcool161-a11y.github.io/mea-poikatsu-blog/images/banner-freecash.jpg"
 ---

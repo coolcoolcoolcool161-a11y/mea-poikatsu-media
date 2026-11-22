@@ -8,6 +8,7 @@ code: "WYKA9Y"
 image: "/images/banner-muse.jpg"
 imageAlt: "Museの紹介画像：招待コードで10億Museトークンをゲット、私の招待コード WYKA9Y、参加後48時間以内に設定で"
 dateModified: "2026-11-20"
+conditions: "参加後48時間以内に、設定で招待コードを入力"
 ---
 
 ## Museとは

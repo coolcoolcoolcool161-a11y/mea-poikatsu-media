@@ -8,6 +8,7 @@ code: "JUTN9FH"
 url: "https://app.moneypig.gy/friend_code?friend_code=JUTN9FH"
 image: "/images/banner-butamaru.jpg"
 dateModified: "2026-11-20"
+conditions: "初回起動時のコード入力＋ブタップ10回＋アカウント作成"
 ---
 
 ## ぶたまるとは

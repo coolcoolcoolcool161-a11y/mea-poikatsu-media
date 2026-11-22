@@ -5,8 +5,8 @@ export const SITE = {
   operator: 'メア',
   siteUrl: 'https://coolcoolcoolcool161-a11y.github.io/mea-poikatsu-media',
   description:
-    'メアが集めた紹介コード・招待コードとポイ活情報をぎゅっとまとめた総合案内。Freecash・TikTok・ワラウ・モッピー・Muse・サンポ・ぶたまる・ミラポイ・トクエル・dipsファーム・ハピタスの12サービス。ブログ・掲示板・note・Xへの入口はこちら。',
-  dateModified: '2026-11-20',
+    'メアが集めた紹介コード・招待コードとポイ活情報をぎゅっとまとめた総合案内。Freecash・ワラウ・TikTok・TikTok Lite・モッピー・ハピタス・Muse・サンポ・ぶたまる・ミラポイ・トクエル・dipsファームの12サービス。ブログ・掲示板・note・Xへの入口はこちら。',
+  dateModified: '2026-11-23',
   gaMeasurementId: 'G-8BB8V3DRW8',
   xAccount: 'https://x.com/pppppuririn',
   noteUrl: 'https://note.com/k_n702',
@@ -17,20 +17,21 @@ export const SITE = {
 // Astro 5ではcontent collectionのentry.idに拡張子（.md）が付くため、URL用スラッグに変換する
 export const slugOf = (id: string) => id.replace(/\.md$/, '');
 
-// ハブのカード表示順（旧サイトと同じ順序）
+// ハブのカード表示順＝おすすめ順位（2026-11-23 全運営一新バッチ2で統一）
+// ①Freecash ②ワラウ ③TikTok系統（本家→Lite） ④モッピー ⑤ハピタス ⑥その他
 export const HUB_ORDER = [
   'freecash',
+  'warau',
   'tiktok',
   'tiktok-lite',
-  'warau',
   'moppy',
+  'hapitas',
   'muse',
   'sampo',
   'butamaru',
   'mirapoi',
   'tokueru',
   'dips',
-  'hapitas',
 ] as const;
 
 export const CATEGORIES = [
@@ -56,7 +57,7 @@ export const MEDIA_HOME = [
   },
   {
     name: '紹介コードランキング',
-    note: '特典額の大きい順に並べたランキング形式。',
+    note: 'おすすめ順に並べた紹介コード案内。',
     url: 'https://coolcoolcoolcool161-a11y.github.io/mea-ranking/',
   },
   {

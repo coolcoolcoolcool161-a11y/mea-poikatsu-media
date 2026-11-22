@@ -8,6 +8,7 @@ code: "GTKZ6E"
 officialSite: "https://www.sampo.cash/ja"
 image: "/images/banner-sampo.jpg"
 dateModified: "2026-11-20"
+conditions: "招待コードを入力して新規登録（双方に4,000pt）"
 ---
 
 ## サンポとは
