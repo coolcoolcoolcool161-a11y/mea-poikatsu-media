@@ -10,7 +10,7 @@ dateModified: "2026-11-20"
 conditions: "紹介リンクから新規登録し、対象ゲームをプレイして条件を達成"
 verified: "2026-11-21"
 featured: true
-image: "https://coolcoolcoolcool161-a11y.github.io/mea-poikatsu-blog/images/banner-freecash.jpg"
+image: "https://mea-poikatsu.github.io/mea-poikatsu-blog/images/banner-freecash.jpg"
 ---
 
 ## Freecashとは
