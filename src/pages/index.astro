@@ -23,7 +23,7 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'WebPage',
-      name: 'メアのポイ活メディア',
+      name: 'ポイ活ポータル',
       description: SITE.description,
       inLanguage: 'ja',
       dateModified: SITE.dateModified,
@@ -32,14 +32,14 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'メアのポイ活メディア トップ', item: SITE.siteUrl + '/' },
+        { '@type': 'ListItem', position: 1, name: 'ポイ活ポータル トップ', item: SITE.siteUrl + '/' },
       ],
     },
   ],
 };
 
-const title = 'メアのポイ活メディア｜紹介コード・招待コード・ポイ活の総合案内（Freecash・TikTok・ワラウ・モッピー等）';
-// ポイ活ブログ（メイン）のURL。
+const title = 'ポイ活ポータル｜紹介コード・招待コード・ポイ活の総合案内（Freecash・TikTok・ワラウ・モッピー等）';
+// ポイ活レビュー帖（メイン）のURL。
 const blogMainUrl = 'https://mea-poikatsu.github.io/mea-poikatsu-blog/';
 
 const CATEGORY_NOTES: Record<string, string> = {
@@ -55,13 +55,13 @@ const CATEGORY_NOTES: Record<string, string> = {
   <div class="wrap">
     <section class="fv-panel">
     <div class="hero">
-      <img src="/mea-poikatsu-media/images/hero.jpg" alt="メアのポイ活メディア：お得をもっと身近に、ポイ活・招待コード・紹介系、一緒におトクをGETしよう" width="1179" height="393" fetchpriority="high" />
+      <img src="/mea-poikatsu-media/images/hero.jpg" alt="ポイ活ポータル：お得をもっと身近に、ポイ活・招待コード・紹介系、一緒におトクをGETしよう" width="1179" height="393" fetchpriority="high" />
     </div>
 <p class="pace-banner">🌱1ヶ月 約5万円ペースで貯まるよ♡</p>
 <style>
   .pace-banner { margin: 14px 0 6px; padding: 12px 16px; border-radius: 999px; background: linear-gradient(90deg, #d81b60, #ad1457); color: #fff; font-weight: 800; font-size: clamp(1.05rem, 3.6vw, 1.45rem); text-align: center; letter-spacing: 0.02em; box-shadow: 0 4px 14px rgba(216, 27, 96, 0.35); }
 </style>
-<h1>メアのポイ活メディア</h1>
+<h1>ポイ活ポータル</h1>
     <p class="lead">
       はじめまして、メアだよ♪ メアが集めた紹介コード・招待コードとポイ活情報をぎゅっとまとめたよ✨ 一緒におトクをGETしようね♡
     </p>
@@ -118,12 +118,12 @@ const CATEGORY_NOTES: Record<string, string> = {
       </table>
     </div>
 
-    <p><a href={blogMainUrl} target="_blank" rel="noopener">全案件の詳細・条件はポイ活ブログ（メイン）で見てね♪ →</a></p>
+    <p><a href={blogMainUrl} target="_blank" rel="noopener">全案件の詳細・条件はポイ活レビュー帖（メイン）で見てね♪ →</a></p>
 
     <AdSlot position="middle" />
 
     <h2 id="categories">🗂 カテゴリから探す</h2>
-    <p>目的に合わせてカテゴリから探せます。各カテゴリの詳細はポイ活ブログ（メイン）にまとめています。</p>
+    <p>目的に合わせてカテゴリから探せます。各カテゴリの詳細はポイ活レビュー帖（メイン）にまとめています。</p>
     <div class="link-cards">
       {CATEGORIES.map((c) => (
         <a class="link-card" href={`${blogMainUrl}categories/${c.slug}/`} target="_blank" rel="noopener">
@@ -166,7 +166,7 @@ const CATEGORY_NOTES: Record<string, string> = {
     <h2 id="board">💬 掲示板</h2>
     <p>みんなのコード交換・質問はここだよ♪</p>
     <ul>
-      <li><a href={SITE.boardUrl} target="_blank" rel="noopener">みんなの紹介コード掲示板</a> →</li>
+      <li><a href={SITE.boardUrl} target="_blank" rel="noopener">ポイ活ひろば</a> →</li>
     </ul>
     <p>あなたの紹介コードを投稿したり、みんなのコードを探したりしてね♪</p>
 
