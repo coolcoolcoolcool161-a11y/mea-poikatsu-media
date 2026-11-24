@@ -6,7 +6,7 @@ export const SITE = {
   siteUrl: 'https://mea-poikatsu.github.io/mea-poikatsu-media',
   description:
     'メアが集めた紹介コード・招待コードとポイ活情報をぎゅっとまとめた総合案内。Freecash・ワラウ・TikTok・TikTok Lite・モッピー・ハピタス・Muse・サンポ・ぶたまる・ミラポイ・トクエル・dipsファームの12サービス。ブログ・掲示板・note・Xへの入口はこちら。',
-  dateModified: '2026-11-23',
+  dateModified: '2026-11-25',
   gaMeasurementId: 'G-8BB8V3DRW8',
   xAccount: 'https://x.com/pppppuririn',
   noteUrl: 'https://note.com/k_n702',
@@ -87,5 +87,53 @@ export const MEDIA_BLOGS = [
     name: '招待コード図鑑',
     note: '全サービスの紹介コードを一覧でまとめたブログ。まとめて確認したい方に。',
     url: 'https://mea-poikatsu.github.io/mea-code-matome/',
+  },
+] as const;
+
+// 現在地マップ用：SNS（X・Instagram・TikTok・note）
+export const SNS_LINKS = [
+  {
+    name: 'X（@pppppuririn）',
+    note: '毎日のポイ活記録とお得情報を投稿中。フォロー歓迎♪',
+    url: 'https://x.com/pppppuririn',
+  },
+  {
+    name: 'Instagram（@mea.poikatsu）',
+    note: '画像で分かる紹介コードと特典まとめを発信中。',
+    url: 'https://www.instagram.com/mea.poikatsu/',
+  },
+  {
+    name: 'TikTok（@mea_poikatsu）',
+    note: '動画でポイ活の始め方とお得情報を発信中。',
+    url: 'https://www.tiktok.com/@mea_poikatsu',
+  },
+  {
+    name: 'note',
+    note: '実践レポートと深掘り解説。詳しい始め方を書いています。',
+    url: 'https://note.com/k_n702',
+  },
+] as const;
+
+// 現在地マップ用：外部ブログ
+export const EXTERNAL_BLOGS = [
+  {
+    name: 'はてなブログ',
+    note: '検索から見つけやすい解説記事の受け皿。',
+    url: 'https://mea-poikatsu.hatenablog.com/',
+  },
+  {
+    name: 'Seesaaブログ',
+    note: 'メアのポイ活実践記録ブログ。',
+    url: 'https://mea-poikatsu.seesaa.blog/',
+  },
+  {
+    name: 'Blogger',
+    note: 'お得情報への入口ブログ。',
+    url: 'https://mea-poikatsu.blogspot.com',
+  },
+  {
+    name: 'FC2ブログ',
+    note: '紹介コード表のサテライトブログ。',
+    url: 'https://meapoikatsu.blog.fc2.com/',
   },
 ] as const;

@@ -1,22 +1,96 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ServiceCard from '../components/ServiceCard.astro';
 import AdSlot from '../components/AdSlot.astro';
-import { SITE, HUB_ORDER, MEDIA_HOME, MEDIA_BLOGS, CATEGORIES, slugOf } from '../data/site';
+import { SITE, MEDIA_HOME, MEDIA_BLOGS, SNS_LINKS, EXTERNAL_BLOGS, slugOf } from '../data/site';
 
 const articles = await getCollection('articles');
 const bySlug = new Map(articles.map((a) => [slugOf(a.id), a]));
-const ordered = HUB_ORDER.map((s) => bySlug.get(s)!);
 const freecash = bySlug.get('freecash')!;
-const rest = ordered.filter((a) => slugOf(a.id) !== 'freecash');
-const featured = ordered.slice(0, 3);
+const warau = bySlug.get('warau')!;
+const hapitas = bySlug.get('hapitas')!;
 
-const itemList = ordered.map((a, i) => ({
-  '@type': 'ListItem',
-  position: i + 1,
-  name: `${a.data.service} ${a.data.benefit}`,
-}));
+// Freecashの訴求4点（正：services-data.json の conditions、2026-11-24確認）
+const freecashPoints = [
+  '招待コード入力後、初回DLで1,430円分ゲット',
+  '毎日のルーレットで無条件ボーナス',
+  'ゲームにログインするだけでもらえる報酬',
+  '高額案件が沢山',
+];
+
+// 鮮度枠：期限が近いキャンペーン（金額・期限の正：services-data.json、2026-11-23公式確認）
+const freshItems = [
+  { article: warau, slug: 'warau', benefitShort: '最大2,500pt', unit: '1pt＝1円' },
+  { article: hapitas, slug: 'hapitas', benefitShort: '最大2,300P', unit: '1P＝1円' },
+];
+
+// 目的別入口カード：行き先サイト名＋1行説明＋代表数字
+const GUIDE_CARDS = [
+  {
+    purpose: 'ランキングで選びたい',
+    name: 'ポイランク',
+    note: 'スコアと特典で比べて、上位から選べるよ。',
+    figure: '全19サービスを比較',
+    url: 'https://mea-poikatsu.github.io/mea-ranking/',
+  },
+  {
+    purpose: 'コードをすぐコピーしたい',
+    name: 'コードサーチ',
+    note: '検索と絞り込みで、欲しいコードに最速でたどり着ける。',
+    figure: '全19サービスのコード',
+    url: 'https://mea-poikatsu.github.io/mea-code-search/',
+  },
+  {
+    purpose: 'じっくりレビューを読みたい',
+    name: 'ポイ活レビュー帖',
+    note: '条件の内訳まで詳しく解説したメインブログ。',
+    figure: '全19サービスの詳細記事',
+    url: 'https://mea-poikatsu.github.io/mea-poikatsu-blog/',
+  },
+  {
+    purpose: 'ゲームで貯めたい',
+    name: 'ポイゲークエスト',
+    note: 'ゲーム案件が中心の攻略ブログ。',
+    figure: 'Freecash 初回DLで1,430円分',
+    url: 'https://mea-poikatsu.github.io/mea-game-poikatsu/',
+  },
+  {
+    purpose: '初心者で手順から知りたい',
+    name: 'ポイ活のトリセツ',
+    note: 'ポイ活が初めてでも分かる、やさしい始め方ガイド。',
+    figure: '3ステップで開始',
+    url: 'https://mea-poikatsu.github.io/mea-kantan-guide/',
+  },
+  {
+    purpose: '新着・終了間近をチェック',
+    name: 'ポイレーダー',
+    note: '新着案件と期限が近いキャンペーンの速報マガジン。',
+    figure: 'ワラウ最大2,500pt（11/30まで）',
+    url: 'https://mea-poikatsu.github.io/mea-poikatsu-magazine/',
+  },
+  {
+    purpose: 'みんなのコード投稿を見たい',
+    name: 'ポイ活ひろば',
+    note: 'あなたの紹介コードも投稿できる掲示板。',
+    figure: '全19サービスの板',
+    url: 'https://mea-poikatsu.github.io/mea-keijiban/',
+  },
+  {
+    purpose: '全コードを図鑑で見たい',
+    name: '招待コード図鑑',
+    note: '全サービスの紹介コードを一覧でまとめた図鑑。',
+    figure: '全19サービス網羅',
+    url: 'https://mea-poikatsu.github.io/mea-code-matome/',
+  },
+];
+
+// 現在地マップ：自前9サイト（ポイ活ポータル自身を含む）
+const NETWORK_SITES = [
+  { name: 'ポイ活ポータル', note: 'いま見ている総合案内。媒体全体の入口はここ。', url: SITE.siteUrl + '/', here: true },
+  ...MEDIA_HOME.map((b) => ({ name: b.name, note: b.note, url: b.url, here: false })),
+  ...MEDIA_BLOGS.map((b) => ({ name: b.name, note: b.note, url: b.url, here: false })),
+  { name: 'ポイ活ひろば', note: 'みんなのコード交換・質問ができる掲示板。', url: SITE.boardUrl, here: false },
+];
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -28,7 +102,6 @@ const jsonLd = {
       inLanguage: 'ja',
       dateModified: SITE.dateModified,
     },
-    { '@type': 'ItemList', name: '紹介コード・招待コード一覧', numberOfItems: 12, itemListElement: itemList },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
@@ -39,149 +112,137 @@ const jsonLd = {
 };
 
 const title = 'ポイ活ポータル｜紹介コード・招待コード・ポイ活の総合案内（Freecash・TikTok・ワラウ・モッピー等）';
-// ポイ活レビュー帖（メイン）のURL。
-const blogMainUrl = 'https://mea-poikatsu.github.io/mea-poikatsu-blog/';
-
-const CATEGORY_NOTES: Record<string, string> = {
-  'point-sites': 'まず登録したい定番のポイントサイト',
-  'sns-video': 'TikTokなどのSNS・動画サービスの招待',
-  'payment-bank': 'PayPay・銀行・通信などの紹介特典',
-  'others': 'そのほかのお得な紹介コード',
-  'new-apps': '歩数・予想・育成などの新しいポイ活アプリ',
-};
 ---
 
 <BaseLayout title={title} description={SITE.description} canonicalPath="/" jsonLd={jsonLd}>
   <div class="wrap">
     <section class="fv-panel">
-    <div class="hero">
-      <img src="/mea-poikatsu-media/images/hero.jpg" alt="ポイ活ポータル：お得をもっと身近に、ポイ活・招待コード・紹介系、一緒におトクをGETしよう" width="1179" height="393" fetchpriority="high" />
-    </div>
-<p class="pace-banner">🌱1ヶ月 約5万円ペースで貯まるよ♡</p>
-<style>
-  .pace-banner { margin: 14px 0 6px; padding: 12px 16px; border-radius: 999px; background: linear-gradient(90deg, #d81b60, #ad1457); color: #fff; font-weight: 800; font-size: clamp(1.05rem, 3.6vw, 1.45rem); text-align: center; letter-spacing: 0.02em; box-shadow: 0 4px 14px rgba(216, 27, 96, 0.35); }
-</style>
-<h1>ポイ活ポータル</h1>
-    <p class="lead">
-      はじめまして、メアだよ♪ メアが集めた紹介コード・招待コードとポイ活情報をぎゅっとまとめたよ✨ 一緒におトクをGETしようね♡
-    </p>
-
-    <div class="featured-benefits" aria-label="注目の特典">
-      {featured.map((a) => (
-        <a class="featured-benefit" href={`#${slugOf(a.id)}`}>
-          <span class="fb-service">{a.data.service}の登録者特典</span>
-          <span class="fb-value">{a.data.benefit}</span>
-        </a>
-      ))}
-    </div>
-
+      <div class="hero">
+        <img src="/mea-poikatsu-media/images/hero.jpg" alt="ポイ活ポータル：お得をもっと身近に、ポイ活・招待コード・紹介系、一緒におトクをGETしよう" width="2400" height="800" fetchpriority="high" />
+      </div>
+      <h1>ポイ活ポータル</h1>
+      <p class="lead">
+        はじめまして、メアだよ♪ ここはメアのポイ活メディア全体の入口。やりたいことから選ぶだけで、ぴったりのサイトに案内するね✨
+      </p>
+      <p class="pace-note">🌱 1ヶ月 約5万円ペースで貯まるよ♡</p>
     </section>
 
     <div class="pr-box">
       このページは広告（PR）を含みます。掲載している紹介リンク・紹介コードを使って各サービスに登録し、所定の条件を満たすと、メア（紹介者）に、各サービスの運営会社から紹介報酬が支払われる場合があります。紹介報酬が発生しても、あなたの特典が減ったり、利用料金が上乗せされたりすることはないので安心してね。仕組みと対象範囲は<a href="/mea-poikatsu-media/ad-disclosure/">「広告・紹介報酬に関する表記」</a>にまとめています。
     </div>
 
-    <p class="article-meta">最終更新：2026年11月23日</p>
+    <p class="article-meta">最終更新：2026年11月25日</p>
 
     <AdSlot position="top" />
 
-    <h2 id="featured">✨ メアの注目案件</h2>
-    <p>特典と条件をチェックしてから、メアの紹介リンク・コードで登録してね♪ 気になるものから始めてみよう♡</p>
+    <section class="hero-card" aria-label="メアのイチオシ Freecash">
+      <p class="hero-card-badge">💖 メアのイチオシ</p>
+      <h2 class="hero-card-title">Freecash</h2>
+      <img class="hero-card-banner" src={freecash.data.image} alt="Freecashの紹介バナー" width="2400" height="800" loading="lazy" decoding="async" />
+      <p class="hero-card-benefit">{freecash.data.benefit}</p>
+      <ul class="hero-card-points">
+        {freecashPoints.map((p) => <li>{p}</li>)}
+      </ul>
+      <div class="code-row hero-code">
+        <span class="code-label">招待コード</span>
+        <code>{freecash.data.code}</code>
+        <button class="copy-btn" type="button" data-copy={freecash.data.code} data-service="freecash">
+          <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="copy-label">コピー</span>
+        </button>
+      </div>
+      {freecash.data.url && (
+        <a class="register-btn hero-cta" href={freecash.data.url} target="_blank" rel="sponsored noopener" data-ref-service="freecash" data-ref-placement="hero" data-service="freecash" data-position="hero">
+          無料で登録する
+        </a>
+      )}
+      <a class="detail-link" href={SITE.blogUrl + 'articles/freecash/'}>詳細と条件を確認する</a>
+    </section>
 
-    <h3>メアのイチオシ💖</h3>
-    <ServiceCard article={freecash} showBody={false} />
+    <section id="guide" class="guide-section">
+      <h2>🧭 目的から探す</h2>
+      <p>ポイ活ポータルは入口専用だよ。詳しい比較・検索・解説は、それぞれ専門のサイトで案内してるね♪</p>
+      <div class="guide-grid">
+        {GUIDE_CARDS.map((c) => (
+          <a class="guide-card" href={c.url} target="_blank" rel="noopener">
+            <span class="gc-purpose">{c.purpose}</span>
+            <span class="gc-name">{c.name} →</span>
+            <span class="gc-note">{c.note}</span>
+            <span class="gc-figure">{c.figure}</span>
+          </a>
+        ))}
+      </div>
+    </section>
 
-    <div class="card-grid">
-      {rest.map((a) => <ServiceCard article={a} />)}
-    </div>
-
-    <h2 id="code-table">📋 紹介コード一覧表（おすすめ順）</h2>
-    <p>全12サービスの紹介コード・登録者特典・条件要点を、メアのおすすめ順に一覧にしたよ♪ 特典や条件は変わることがあるから、登録前に各サービスの公式案内も確認してね。</p>
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr><th>順位</th><th>サービス</th><th>紹介コード</th><th>登録者特典</th><th>条件要点</th><th>最終確認日</th><th>詳細</th></tr>
-        </thead>
-        <tbody>
-          {ordered.map((a, i) => (
-            <tr>
-              <td>{i + 1}</td>
-              <td>{a.data.service}</td>
-              <td>{a.data.code ? (a.data.code2 ? `${a.data.code}／${a.data.code2}` : a.data.code) : 'リンク型'}</td>
-              <td>{a.data.benefit}</td>
-              <td>{a.data.conditions ?? '—'}</td>
-              <td>{a.data.verified ?? a.data.dateModified}</td>
-              <td><a href={SITE.blogUrl + `articles/${slugOf(a.id)}/`} target="_blank" rel="noopener">詳細へ</a></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    <p><a href={blogMainUrl} target="_blank" rel="noopener">全案件の詳細・条件はポイ活レビュー帖（メイン）で見てね♪ →</a></p>
+    <section id="freshness" class="fresh-block">
+      <h2>⏰ 鮮度情報｜期限が近いキャンペーン</h2>
+      <p>下の2件はキャンペーンの登録対象期間が<strong>2026年11月30日まで</strong>。終わっちゃう前にチェックしてね。</p>
+      <div class="fresh-grid">
+        {freshItems.map(({ article, slug, benefitShort, unit }) => (
+          <article class="fresh-card">
+            <p class="fresh-head">
+              <span class="fresh-service">{article.data.service}</span>
+              <span class="fresh-deadline">11/30まで</span>
+            </p>
+            <p class="fresh-benefit">{benefitShort}<span class="fresh-unit">（{unit}）</span></p>
+            {article.data.code && (
+              <div class="code-row">
+                <span class="code-label">紹介コード</span>
+                <code>{article.data.code}</code>
+                <button class="copy-btn" type="button" data-copy={article.data.code} data-service={slug}>
+                  <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="copy-label">コピー</span>
+                </button>
+              </div>
+            )}
+            {article.data.url && (
+              <a class="register-btn" href={article.data.url} target="_blank" rel="sponsored noopener" data-ref-service={slug} data-ref-placement="freshness" data-service={slug} data-position="freshness">
+                無料で登録する
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
 
     <AdSlot position="middle" />
 
-    <h2 id="categories">🗂 カテゴリから探す</h2>
-    <p>目的に合わせてカテゴリから探せます。各カテゴリの詳細はポイ活レビュー帖（メイン）にまとめています。</p>
-    <div class="link-cards">
-      {CATEGORIES.map((c) => (
-        <a class="link-card" href={`${blogMainUrl}categories/${c.slug}/`} target="_blank" rel="noopener">
-          <span class="lc-name">{c.name}</span>
-          <span class="lc-note">{CATEGORY_NOTES[c.slug] ?? ''}</span>
-        </a>
-      ))}
-    </div>
+    <section class="network-map" aria-label="メアのポイ活メディア全体マップ">
+      <h2>🗺 メアのポイ活メディア全体マップ</h2>
+      <p class="nm-intro">メアの媒体は全部でこんなにあるよ。ブックマーク代わりに使ってね。</p>
 
-    <h2 id="howto">🎀 ポイ活の仕組み</h2>
-    <p>紹介コードを使うと、登録する方に特典がもらえます。流れはかんたん3ステップです。</p>
-    <ol class="steps">
-      <li><strong>コードをコピー</strong>：気になるサービスのカードで紹介コードをコピーしてね。リンク型の紹介はそのまま次のステップへ。</li>
-      <li><strong>公式で登録</strong>：カードのボタンから公式サイト・アプリへ進んで登録。コード入力欄がある場合は、コピーしたコードを貼り付けてね。</li>
-      <li><strong>特典GET</strong>：条件を満たすと、登録した方に特典がもらえます。条件は各カードと記事で確認してね。</li>
-    </ol>
+      <h3 class="nm-group-title">自前サイト（9）</h3>
+      <ul class="nm-list">
+        {NETWORK_SITES.map((s) => (
+          <li>
+            {s.here ? (
+              <span class="nm-name nm-here">{s.name}<span class="nm-badge">現在地</span></span>
+            ) : (
+              <a class="nm-name" href={s.url} target="_blank" rel="noopener">{s.name}</a>
+            )}
+            <span class="nm-note">{s.note}</span>
+          </li>
+        ))}
+      </ul>
 
-    <h2 id="home">🏠 ホームページ</h2>
-    <p>気になるサービスを探して比べてみてね♪</p>
-    <div class="link-cards">
-      {MEDIA_HOME.map((b) => (
-        <a class="link-card" href={b.url} target="_blank" rel="noopener">
-          <span class="lc-name">{b.name}</span>
-          <span class="lc-note">{b.note}</span>
-        </a>
-      ))}
-    </div>
+      <h3 class="nm-group-title">SNS・note</h3>
+      <ul class="nm-list">
+        {SNS_LINKS.map((s) => (
+          <li>
+            <a class="nm-name" href={s.url} target="_blank" rel="noopener">{s.name}</a>
+            <span class="nm-note">{s.note}</span>
+          </li>
+        ))}
+      </ul>
 
-    <h2 id="blogs">📖 ブログ</h2>
-    <p>ポイ活のコツと「これってどうなの？」をメアが分かりやすくまとめたよ♪</p>
-    <div class="link-cards">
-      {MEDIA_BLOGS.map((b) => (
-        <a class="link-card" href={b.url} target="_blank" rel="noopener">
-          <span class="lc-name">{b.name}</span>
-          <span class="lc-note">{b.note}</span>
-        </a>
-      ))}
-    </div>
-
-    <h2 id="board">💬 掲示板</h2>
-    <p>みんなのコード交換・質問はここだよ♪</p>
-    <ul>
-      <li><a href={SITE.boardUrl} target="_blank" rel="noopener">ポイ活ひろば</a> →</li>
-    </ul>
-    <p>あなたの紹介コードを投稿したり、みんなのコードを探したりしてね♪</p>
-
-    <h2 id="note">📝 note</h2>
-    <p>メアの実践レポートと深掘り解説だよ♪</p>
-    <ul>
-      <li><a href={SITE.noteUrl} target="_blank" rel="noopener">メア｜ポイ活・紹介コード</a> →</li>
-    </ul>
-    <p>メアが実際にやってみたポイ活の記録や、詳しい始め方を書いているよ。ぜひ読んでみてね♡</p>
-
-    <h2 id="x">💖 Xでも発信中だよ</h2>
-    <p>毎日のポイ活記録とお得情報をメアが投稿しているよ♪ フォローしてくれたら嬉しいな♡</p>
-    <ul>
-      <li><a href={SITE.xAccount} target="_blank" rel="noopener">𝕏 メア｜ポイ活・紹介コード（@pppppuririn）</a> →</li>
-    </ul>
+      <h3 class="nm-group-title">外部ブログ</h3>
+      <ul class="nm-list">
+        {EXTERNAL_BLOGS.map((s) => (
+          <li>
+            <a class="nm-name" href={s.url} target="_blank" rel="noopener">{s.name}</a>
+            <span class="nm-note">{s.note}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
 
     <section class="nl-feature">
       <h2 id="newsletter">✉️ ニュースレター</h2>
@@ -203,6 +264,181 @@ const CATEGORY_NOTES: Record<string, string> = {
 </BaseLayout>
 
 <style>
+  /* ペース表記は注記レベル（小さく・控えめに） */
+  .pace-note {
+    display: inline-block;
+    margin: 4px 0 10px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--color-primary-soft);
+    border: 1px solid var(--color-primary-line);
+    color: var(--color-primary-strong);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .code-label { font-size: 0.85rem; font-weight: 700; color: var(--color-primary-deep, #ad1457); }
+
+  /* 主役カード：他の要素より明確に大きく・目立つ */
+  .hero-card {
+    margin: 28px 0 8px;
+    padding: 22px 20px 24px;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg, 16px);
+    background: linear-gradient(180deg, #fff5f8 0%, #ffffff 55%);
+    box-shadow: 0 12px 32px rgba(199, 24, 91, 0.18);
+    text-align: center;
+  }
+  .hero-card-badge {
+    display: inline-block;
+    margin: 0 0 6px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #d81b60, #ad1457);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+  }
+  .hero-card-title {
+    margin: 4px 0 12px;
+    border: none;
+    font-size: clamp(1.7rem, 6vw, 2.3rem);
+    color: var(--color-primary-dark);
+  }
+  .hero-card-banner { border-radius: 12px; width: 100%; height: auto; }
+  .hero-card-benefit {
+    margin: 16px 0 10px;
+    font-size: clamp(1.25rem, 4.6vw, 1.6rem);
+    font-weight: 900;
+    line-height: 1.45;
+    color: var(--color-benefit-text);
+    font-family: var(--font-heading);
+  }
+  .hero-card-points {
+    list-style: none;
+    margin: 0 auto 16px;
+    padding: 0;
+    max-width: 30em;
+    text-align: left;
+  }
+  .hero-card-points li {
+    position: relative;
+    padding: 3px 0 3px 1.6em;
+    font-size: 0.98rem;
+  }
+  .hero-card-points li::before {
+    content: '✓';
+    position: absolute;
+    left: 0.2em;
+    color: var(--color-primary-strong);
+    font-weight: 900;
+  }
+  .hero-code { justify-content: center; margin-bottom: 16px; }
+  .hero-code code { font-size: 1.3rem; letter-spacing: 0.08em; }
+  .hero-cta {
+    max-width: 420px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    padding: 16px 24px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(199, 24, 91, 0.35);
+  }
+  .hero-card .detail-link { display: inline-block; margin-top: 14px; }
+
+  /* 目的別入口カード */
+  .guide-section { margin-top: 40px; }
+  .guide-grid { display: grid; gap: 12px; margin: 16px 0; }
+  @media (min-width: 640px) { .guide-grid { grid-template-columns: 1fr 1fr; } }
+  .guide-card {
+    display: block;
+    background: #fff;
+    border: var(--border-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 16px 18px;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .guide-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(199, 24, 91, 0.16); }
+  .gc-purpose { display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-muted); }
+  .gc-name {
+    display: block;
+    margin: 2px 0 4px;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: var(--color-primary-strong);
+  }
+  .gc-note { display: block; font-size: 0.92rem; color: var(--color-text); line-height: 1.6; }
+  .gc-figure {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--color-benefit-bg);
+    color: var(--color-benefit-text);
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  /* 鮮度枠：1ブロックだけ */
+  .fresh-block {
+    margin-top: 40px;
+    padding: 6px 18px 18px;
+    border: 2px dashed var(--color-notice-line, #ffe082);
+    border-radius: var(--radius-lg, 16px);
+    background: var(--color-notice-bg, #fff8e1);
+  }
+  .fresh-grid { display: grid; gap: 12px; margin-top: 12px; }
+  @media (min-width: 640px) { .fresh-grid { grid-template-columns: 1fr 1fr; } }
+  .fresh-card {
+    background: #fff;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 16px 18px;
+  }
+  .fresh-head { display: flex; align-items: center; justify-content: space-between; margin: 0 0 6px; }
+  .fresh-service { font-family: var(--font-heading); font-weight: 900; font-size: 1.1rem; }
+  .fresh-deadline {
+    background: #c62828;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .fresh-benefit { margin: 0 0 12px; font-size: 1.45rem; font-weight: 900; color: var(--color-benefit-text); line-height: 1.3; }
+  .fresh-unit { font-size: 0.85rem; font-weight: 700; color: var(--color-text-muted); }
+  .fresh-card .code-row { margin-bottom: 12px; }
+
+  /* 現在地マップ：格を落として下部に小さく */
+  .network-map { margin-top: 48px; font-size: 0.92rem; }
+  .network-map h2 { font-size: 1.1rem; color: var(--color-text-muted); }
+  .nm-intro { color: var(--color-text-muted); }
+  .nm-group-title {
+    margin: 20px 0 8px;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    border-left: 4px solid var(--color-primary-line);
+    padding-left: 8px;
+  }
+  .nm-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  @media (min-width: 768px) { .nm-list { grid-template-columns: 1fr 1fr; } }
+  .nm-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; padding: 6px 10px; background: #fff; border: 1px solid #f3e2ea; border-radius: 8px; }
+  .nm-name { font-weight: 700; text-decoration: none; }
+  .nm-here { color: var(--color-primary-strong); }
+  .nm-badge {
+    margin-left: 6px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--color-primary-strong);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    vertical-align: middle;
+  }
+  .nm-note { color: var(--color-text-muted); font-size: 0.85rem; }
+
   /* ニュースレターセクション：レース＋ハート背景を薄く敷き、白パネル相当の淡色レイヤーで本文の可読性を保つ */
   .nl-feature {
     margin: 2em 0;
