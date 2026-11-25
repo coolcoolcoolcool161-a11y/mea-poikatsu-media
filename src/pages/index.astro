@@ -18,9 +18,8 @@ const freecashPoints = [
   '高額案件が沢山',
 ];
 
-// 鮮度枠：期限が近いキャンペーン（金額・期限の正：services-data.json、2026-11-23公式確認）
+// 鮮度枠：期限が近いキャンペーン（金額・期限の正：services-data.json、2026-11-25確認。ワラウは期限訂正で2027-01-31までのため対象外）
 const freshItems = [
-  { article: warau, slug: 'warau', benefitShort: '最大2,500pt', unit: '1pt＝1円' },
   { article: hapitas, slug: 'hapitas', benefitShort: '最大2,300P', unit: '1P＝1円' },
 ];
 
@@ -65,7 +64,7 @@ const GUIDE_CARDS = [
     purpose: '新着・終了間近をチェック',
     name: 'ポイレーダー',
     note: '新着案件と期限が近いキャンペーンの速報マガジン。',
-    figure: 'ワラウ最大2,500pt（11/30まで）',
+    figure: 'ワラウ最大2,500pt（2027/1/31まで）',
     url: 'https://mea-poikatsu.github.io/mea-poikatsu-magazine/',
   },
   {
@@ -131,7 +130,7 @@ const title = 'ポイ活ポータル｜紹介コード・招待コード・ポ�
       このページは広告（PR）を含みます。掲載している紹介リンク・紹介コードを使って各サービスに登録し、所定の条件を満たすと、メア（紹介者）に、各サービスの運営会社から紹介報酬が支払われる場合があります。紹介報酬が発生しても、あなたの特典が減ったり、利用料金が上乗せされたりすることはないので安心してね。仕組みと対象範囲は<a href="/mea-poikatsu-media/ad-disclosure/">「広告・紹介報酬に関する表記」</a>にまとめています。
     </div>
 
-    <p class="article-meta">最終更新：2026年11月25日</p>
+    <p class="article-meta">最終更新：2026年11月26日</p>
 
     <AdSlot position="top" />
 
@@ -175,7 +174,7 @@ const title = 'ポイ活ポータル｜紹介コード・招待コード・ポ�
 
     <section id="freshness" class="fresh-block">
       <h2>⏰ 鮮度情報｜期限が近いキャンペーン</h2>
-      <p>下の2件はキャンペーンの登録対象期間が<strong>2026年11月30日まで</strong>。終わっちゃう前にチェックしてね。</p>
+      <p>下のキャンペーンは登録対象期間が<strong>2026年11月30日まで</strong>。終わっちゃう前にチェックしてね。</p>
       <div class="fresh-grid">
         {freshItems.map(({ article, slug, benefitShort, unit }) => (
           <article class="fresh-card">

@@ -9,8 +9,8 @@ url: "https://www.warau.jp/friend/reg/bEs5"
 image: "/images/banner-warau.jpg"
 imageAlt: "ポイントもらえる｜ワラウの紹介バナー"
 dateModified: "2026-11-20"
-conditions: "紹介経由の登録で初回500pt。初回のお買い物・アプリ広告・あんしん保証の条件達成で最大2,500pt（登録の対象期間は2026-11-30まで）"
-verified: "2026-11-23"
+conditions: "紹介経由の登録で初回500pt。初回のお買い物・アプリ広告・あんしん保証の条件達成で最大2,500pt（キャンペーンは2027-01-31まで、個別条件は登録から60日以内に達成）"
+verified: "2026-11-25"
 ---
 
 ## ワラウとは

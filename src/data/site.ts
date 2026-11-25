@@ -6,7 +6,7 @@ export const SITE = {
   siteUrl: 'https://mea-poikatsu.github.io/mea-poikatsu-media',
   description:
     'メアが集めた紹介コード・招待コードとポイ活情報をぎゅっとまとめた総合案内。Freecash・ワラウ・TikTok・TikTok Lite・モッピー・ハピタス・Muse・サンポ・ぶたまる・ミラポイ・トクエル・dipsファームの12サービス。ブログ・掲示板・note・Xへの入口はこちら。',
-  dateModified: '2026-11-25',
+  dateModified: '2026-11-26',
   gaMeasurementId: 'G-8BB8V3DRW8',
   xAccount: 'https://x.com/pppppuririn',
   noteUrl: 'https://note.com/k_n702',
