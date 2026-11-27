@@ -437,3 +437,81 @@ tbody tr:hover { background: #fff0f5; }
    本文 = LINE Seed JP（Webフォント）/ 見出し = 丸ゴシック系（S07のみ角ゴシック） */
 h1, h2, h3, .brand { font-family: var(--font-heading); }
 h1, .brand { font-weight: 900; }
+
+/* テーマ切替ボタン（テーマ基盤 §18 TOGGLE・ナビ右端） */
+.theme-toggle {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
+  min-height: 36px; padding: 6px 12px; border-radius: var(--radius-pill);
+  border: 1px solid var(--color-primary-line); background: var(--color-surface);
+  color: var(--color-text); font-size: 0.85rem; font-weight: 700; cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--color-primary); }
+
+/* === ダークテーマ（テーマ基盤 §18・段4 S01 段階1-4） ===
+   本体CSS（ライト前提）は触らず、html[data-theme="dark"] の上書きだけを足す。
+   設計の正：STAGE4-S01-DARKCSS-DRAFT.md §4〜§7 */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --color-primary: #f06a9c;
+  --color-primary-strong: #ff9ec4;
+  --color-primary-dark: #ff7fab;
+  --color-primary-soft: #33202b;
+  --color-primary-line: #5a3547;
+  --color-bg: #171116;
+  --color-surface: #251a21;
+  --color-text: #f7f0f3;
+  --color-text-muted: #cdb2bf;
+  --color-benefit-bg: #33202b;
+  --color-benefit-text: #ff9ec4;
+  --color-notice-bg: #33301d;
+  --color-notice-line: #6b6238;
+  --color-success-bg: #16301f;
+  --color-success-text: #7fd6a4;
+  --color-error-bg: #3a1d1b;
+  --color-error-text: #ff9d94;
+  --color-board: #b79ced;
+  --color-focus: #ff9ec4;
+  --color-primary-deep: #ff9ec4;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.45);
+  --shadow-raised: 0 4px 14px rgba(0,0,0,0.5);
+  --shadow-card-hover: 0 12px 28px rgba(0,0,0,0.55);
+  --shadow-btn: 0 3px 10px rgba(0,0,0,0.5);
+  --shadow-header: 0 2px 14px rgba(0,0,0,0.45);
+  --gradient-hero: linear-gradient(168deg, #2b1a23 0%, #241219 55%, #2e1520 100%);
+  --gradient-badge: linear-gradient(135deg, #33202b 0%, #2a1a24 100%);
+  --gradient-soft: linear-gradient(180deg, #251a21 0%, #1d141a 100%);
+}
+html[data-theme="dark"] .site-header {
+  background: linear-gradient(#1d141b, #1d141b) padding-box, var(--gradient-brand) border-box;
+}
+html[data-theme="dark"] .site-footer {
+  background: linear-gradient(180deg, #1d141b 0%, #171116 100%) padding-box, var(--gradient-brand) border-box;
+}
+html[data-theme="dark"] .article-end-cta {
+  background: linear-gradient(#251a21, #20141c) padding-box, var(--gradient-brand) border-box;
+}
+html[data-theme="dark"] .faq-item,
+html[data-theme="dark"] .link-card,
+html[data-theme="dark"] .empty-state,
+html[data-theme="dark"] .card-tag-accent,
+html[data-theme="dark"] .featured-benefit { background: var(--color-surface); }
+html[data-theme="dark"] .mea-speech .speech-body,
+html[data-theme="dark"] .mea-speech .speech-body::before { background: var(--color-surface); }
+html[data-theme="dark"] th { background: linear-gradient(180deg, #33202b, #2a1a24); }
+html[data-theme="dark"] tbody tr:nth-child(even) { background: #1f161d; }
+html[data-theme="dark"] tbody tr:hover { background: #2e2129; }
+html[data-theme="dark"] .copy-btn:hover { background: #402632; }
+html[data-theme="dark"] .pr-box { background: var(--color-notice-bg); border-color: var(--color-notice-line); }
+html[data-theme="dark"] ::selection { background: #5a2340; color: #ffffff; }
+html[data-theme="dark"] .hero,
+html[data-theme="dark"] .fv-panel,
+html[data-theme="dark"] .benefit-badge { border-color: var(--color-primary-line); }
+/* primary-strong / primary-dark を背景に使う箇所は、文字用の明色化に巻き込まない */
+html[data-theme="dark"] .steps li::before,
+html[data-theme="dark"] .empty-state button,
+html[data-theme="dark"] .nl-submit { background: var(--gradient-primary); }
+html[data-theme="dark"] .register-btn:hover,
+html[data-theme="dark"] .nl-submit:hover:not(:disabled) { background: var(--gradient-primary-hover); }
+/* プレースホルダは UA 既定の灰色（#757575 系）が暗い入力面で 2.4 程度まで落ちるため明色化する */
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder { color: #d8bcc9; }

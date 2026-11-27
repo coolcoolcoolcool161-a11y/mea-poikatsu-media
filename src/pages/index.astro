@@ -12,7 +12,7 @@ const hapitas = bySlug.get('hapitas')!;
 
 // Freecashの訴求4点（正：services-data.json の conditions、2026-11-24確認）
 const freecashPoints = [
-  '招待コード入力後、初回DLで1,430円分ゲット',
+  'スマホで簡単に始められます',
   '毎日のルーレットで無条件ボーナス',
   'ゲームにログインするだけでもらえる報酬',
   '高額案件が沢山',
@@ -50,7 +50,7 @@ const GUIDE_CARDS = [
     purpose: 'ゲームで貯めたい',
     name: 'ポイゲークエスト',
     note: 'ゲーム案件が中心の攻略ブログ。',
-    figure: 'Freecash 初回DLで1,430円分',
+    figure: 'Freecash 毎日のルーレットで無条件ボーナス',
     url: 'https://mea-poikatsu.github.io/mea-game-poikatsu/',
   },
   {
@@ -450,4 +450,19 @@ const title = 'ポイ活ポータル｜紹介コード・招待コード・ポ�
   }
   .nl-feature h2 { margin-top: 0.6em; }
   .nl-feature ul { margin-bottom: 0.4em; }
+
+  /* ダークテーマ（テーマ基盤 §18・設計の正：STAGE4-S01-DARKCSS-DRAFT.md §6） */
+  html[data-theme="dark"] .hero-card {
+    background: linear-gradient(180deg, #2b1a23 0%, #251a21 55%);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+  html[data-theme="dark"] .guide-card,
+  html[data-theme="dark"] .fresh-card { background: var(--color-surface); }
+  html[data-theme="dark"] .guide-card:hover { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
+  html[data-theme="dark"] .nm-list li { background: var(--color-surface); border-color: var(--color-primary-line); }
+  html[data-theme="dark"] .nl-feature {
+    background:
+      linear-gradient(rgba(23, 17, 22, 0.88), rgba(37, 26, 33, 0.92)),
+      url('/mea-poikatsu-media/images/mea-lace-heart-bg-wide.webp') center / cover no-repeat;
+  }
 </style>

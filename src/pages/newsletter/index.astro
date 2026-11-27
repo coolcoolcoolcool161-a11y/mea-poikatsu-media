@@ -134,4 +134,8 @@ import { SITE } from '../../data/site';
     cursor: not-allowed;
   }
   .nl-note { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0; }
+
+  /* ダークテーマ（テーマ基盤 §18・設計の正：STAGE4-S01-DARKCSS-DRAFT.md §6） */
+  html[data-theme="dark"] .nl-email { background: var(--color-surface); }
+  html[data-theme="dark"] .nl-submit:disabled { background: #4a3542; }
 </style>

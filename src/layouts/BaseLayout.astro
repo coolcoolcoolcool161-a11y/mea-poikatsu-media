@@ -17,7 +17,7 @@ const ogImageUrl = SITE.siteUrl + ogImage;
 const organizationLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'メアのポイ活メディア',
+  name: SITE.name,
   url: 'https://mea-poikatsu.github.io/mea-poikatsu-media/',
   sameAs: [
     'https://x.com/pppppuririn',
@@ -68,6 +68,8 @@ const organizationLd = {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700;800&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="/mea-poikatsu-media/favicon.svg" />
+    <script is:inline>(function(){try{var t=localStorage.getItem('poigame-theme');if(t!=='dark'&&t!=='light'){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
   </head>
   <body>
     <header class="site-header">
@@ -80,6 +82,7 @@ const organizationLd = {
           <a href="/mea-poikatsu-media/search/">検索</a>
           <a href="/mea-poikatsu-media/about/">このメディアについて</a>
           <a href="/mea-poikatsu-media/contact/">お問い合わせ</a>
+          <button class="theme-toggle" type="button" aria-label="表示テーマを切り替える" aria-pressed="false"><span class="tt-icon" aria-hidden="true">🌙</span>テーマ</button>
         </nav>
       </div>
     </header>
@@ -172,6 +175,26 @@ const organizationLd = {
           wrap.appendChild(t);
         }
       });
+    </script>
+    <script is:inline>
+      // テーマ切替ボタン（テーマ基盤 §18 TOGGLE）。キーは poigame-theme に統一し、同一オリジンの他サイトと選択を引き継ぐ
+      (function () {
+        var b = document.querySelector('.theme-toggle');
+        if (!b) return;
+        var icon = b.querySelector('.tt-icon');
+        function cur() { return document.documentElement.getAttribute('data-theme') || 'light'; }
+        function draw() {
+          if (icon) icon.textContent = cur() === 'dark' ? '☀️' : '🌙';
+          b.setAttribute('aria-pressed', cur() === 'dark' ? 'true' : 'false');
+        }
+        b.addEventListener('click', function () {
+          var t = cur() === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', t);
+          try { localStorage.setItem('poigame-theme', t); } catch (e) {}
+          draw();
+        });
+        draw();
+      })();
     </script>
   </body>
 </html>

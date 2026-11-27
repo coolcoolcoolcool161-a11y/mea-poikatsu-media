@@ -1,9 +1,9 @@
 ---
-title: "Freecashの紹介コード 3BQLXB｜招待コード入力後、初回DLで1,430円分ゲット"
+title: "Freecashの紹介コード 3BQLXB｜毎日のルーレットで無条件ボーナス"
 description: "メアの紹介リンクから登録して、対象のゲームをプレイするだけで報酬がもらえるよ♪ 初めての子も気軽にチャレンジできて、スマホで簡単に始められるからおすすめだよ♡"
 service: "Freecash"
 category: point-sites
-benefit: "招待コード入力後、初回DLで1,430円分ゲット"
+benefit: "毎日のルーレットで無条件ボーナス"
 code: "3BQLXB"
 url: "https://freecash.com/r/3BQLXB"
 dateModified: "2026-11-23"
